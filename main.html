@@ -1,10 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="EN">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Git Example Code</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: 50px 50px 50px 50px 50px;
+            padding: 0px;
+        }
+        .output {
+            grid-column: 1 / span 5;
+            height: 50px;
+            border-radius:100px;
+        }
+        button {
+            height: 50px;
+            border-radius: 100px;
+            border-width: 0px;
+        }
+        .num {
+            background-color: #101010;
+            color: white;
+        }
+        .opr {
+            background-color: #F08000;
+            color: black;
+        }
+        .fun {
+            background-color: #888
+        }
+    </style>
 </head>
 <body>
-    <p>My first Git project!</p>
+<p><a href="index.html">Return to homepage</a></p>
+<div style="font-family: Arial, Helvetica, sans-serif; text-align: center;">
+    <h1>My very own calculator! No parts were made by AI, although some parts were debugged by AI.</h1>
+    <div class="grid">
+        <input class="output" id="output">
+        <button class="fun" onclick="document.getElementById('output').value = ''">AC</button>
+        <button class="num" onclick="document.getElementById('output').value += '√('">√(</button>
+        <button class="num" onclick="document.getElementById('output').value += '^('">^(</button>
+        <button class="fun" onclick="document.getElementById('output').value += 'φ'">φ</button> <!-- we consider constants as functions -->
+        <button class="fun" onclick="document.getElementById('output').value += 'γ'">γ</button>
+        <button class="num" onclick="document.getElementById('output').value += '1'">1</button>
+        <button class="num" onclick="document.getElementById('output').value += '2'">2</button>
+        <button class="num" onclick="document.getElementById('output').value += '3'">3</button>
+        <button class="opr" onclick="document.getElementById('output').value += '+'">+</button>
+        <button class="fun" onclick="document.getElementById('output').value += 'π'">π</button>
+        <button class="num" onclick="document.getElementById('output').value += '4'">4</button>
+        <button class="num" onclick="document.getElementById('output').value += '5'">5</button>
+        <button class="num" onclick="document.getElementById('output').value += '6'">6</button>
+        <button class="opr" onclick="document.getElementById('output').value += '-'">-</button>
+        <button class="fun" onclick="document.getElementById('output').value += 'e'">e</button>
+        <button class="num" onclick="document.getElementById('output').value += '7'">7</button>
+        <button class="num" onclick="document.getElementById('output').value += '8'">8</button>
+        <button class="num" onclick="document.getElementById('output').value += '9'">9</button>
+        <button class="opr" onclick="document.getElementById('output').value += '×'">×</button>
+        <button class="opr" onclick="document.getElementById('output').value += 's('">s(</button>
+        <button class="num" onclick="document.getElementById('output').value += '.'">.</button>
+        <button class="num" onclick="document.getElementById('output').value += '0'">0</button>
+        <button class="fun" onclick="calc()">=</button>
+        <button class="opr" onclick="document.getElementById('output').value += '÷'">÷</button>
+        <button class="opr" onclick="document.getElementById('output').value += 'c('">c(</button>
+        <button class="num" onclick="document.getElementById('output').value += '('">(</button>
+        <button class="num" onclick="document.getElementById('output').value += ')'">)</button>
+        <button class="num" onclick="document.getElementById('output').value += 't('">t(</button>
+        <button class="opr" onclick="document.getElementById('output').value += 'l('">l(</button>
+        <button class="fun" onclick="document.getElementById('output').value += 'δ'">δ</button>
+        <p class="output">Please note: s(, c(, t(, and l( are shorthand for sin(, cos(, tan(, and ln( respectively. This program is using radians.</p>
+    </div>
+</div>
+<script>
+    function calc() {
+        orig = document.getElementById("output").value
+        rebu = "" // rebuild
+        num = ['1', '2', '3','4','5','6','7','8','9','0'] // Numbers, just rebuild them
+        ops = ['+', '-', '×', '÷', 's', 'c', 't', '^', '√', '(', ')', '.'] // Operators
+        con = ['φ', 'γ', 'π', 'e', 'δ'] //Constants
+        for (const i of orig) {
+            if (num.includes(i)) { // easy handling
+                rebu += i
+            }
+            else if (con.includes(i) || ops.includes(i)) {
+                if (i === "×") {
+                    rebu += "*"
+                }
+                else if (i === "÷") {
+                    rebu += "/"
+                }
+                else if (i === "s") {
+                    rebu += "Math.sin"
+                }
+                else if (i === "c") {
+                    rebu += "Math.cos"
+                }
+                else if (i === "t") {
+                    rebu += "Math.tan"
+                }
+                else if (i === "^") {
+                    rebu += "**"
+                }
+                else if (i === "√") {
+                    rebu += "Math.sqrt"
+                }
+                else if (i === "φ") {
+                    rebu += "(1+Math.sqrt(5))/2 "
+                }
+                else if (i === "γ") {
+                    rebu += "0.57721 "
+                }
+                else if (i === "π") {
+                    rebu += "Math.PI "
+                }
+                else if (i === "e") {
+                    rebu += "Math.E "
+                }
+                else if (i === "δ") {
+                    rebu += " 4.6692016091 "
+                }
+                else {
+                    rebu += i // For symbols like +, -, (, and )
+                }
+            }
+        }
+        console.log(rebu)
+        document.getElementById("output").value = eval(rebu)
+    }
+</script>
 </body>
 </html>
